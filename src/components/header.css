@@ -1,0 +1,14 @@
+header {
+    height: 90px;
+    /* background-color: var(--secondary); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header > .brand {
+    text-decoration: none;
+    color: var(--text);
+    text-transform: uppercase;
+    font-size: 50px
+}

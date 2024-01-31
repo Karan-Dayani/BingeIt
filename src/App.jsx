@@ -1,7 +1,15 @@
+import React from "react";
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+
+import Layout from "./components/Layout";
+
+
+const router = createBrowserRouter(createRoutesFromElements(
+  <Route path="/" element={<Layout />} />
+))
+
 export default function App() {
   return (
-    <>
-      <h1>Hallo Everynian</h1>
-    </>
+    <RouterProvider router={router} />
   )
 }

@@ -1,0 +1,17 @@
+:root {
+    --primary: #161A1D;
+    --secondary: #B1A7A6;
+    --text: #f5f3f4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary);
+    font-family: 'Bebas Neue', sans-serif;
+}
