@@ -1,11 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./header.css"
 
 export default function Header() {
     return (
         <header>
-            <Link className="brand" to="/">BingeIt</Link>
+            <div className="pc-header">
+                <Link className="brand" to="/">BINGEIT</Link>
+                <ul>
+                    <li>
+                        <NavLink>MOVIES</NavLink>
+                    </li>
+                    <li>
+                        <NavLink>TV SHOWS</NavLink>
+                    </li>
+                </ul>
+            </div>
         </header>
     )
 }
