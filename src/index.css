@@ -1,5 +1,6 @@
 :root {
     --primary: #161A1D;
+    --secondary: #B1A7A6;
     --hover: #BA181B;
     --text: #f5f3f4;
 }
@@ -13,5 +14,5 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--primary);
-    font-family: 'Bebas Neue', sans-serif;
+    color: var(--text);
 }

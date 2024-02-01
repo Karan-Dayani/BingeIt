@@ -14,7 +14,7 @@ export default function Header() {
     return (
         <header>
             <div className="pc-header">
-                <Link className="brand" to="/">BINGEIT</Link>
+                <Link onClick={() => setMenu("menu")} className="brand" to="/">BINGEIT</Link>
                 <ul>
                     <li>
                         <NavLink to="/movies">MOVIES</NavLink>
@@ -28,19 +28,19 @@ export default function Header() {
                 </ul>
             </div>
             <div className="mob-header">
-                <Link className="brand" to="/">BINGEIT</Link>
+                <Link onClick={() => setMenu("menu")} className="brand" to="/">BINGEIT</Link>
                 <MenuRoundedIcon onClick={handleMenuToggle} sx={{ fontSize: 50, color: "var(--hover)" }} />
             </div>
             <div className={menu}>
                 <ul>
                     <li>
-                        <NavLink to="/movies">MOVIES</NavLink>
+                        <NavLink onClick={handleMenuToggle} to="/movies">MOVIES</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/tv-shows">TV SHOWS</NavLink>
+                        <NavLink onClick={handleMenuToggle} to="/tv-shows">TV SHOWS</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/watchlist">WATCHLIST</NavLink>
+                        <NavLink onClick={handleMenuToggle} to="/watchlist">WATCHLIST</NavLink>
                     </li>
                 </ul>
             </div>

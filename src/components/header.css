@@ -1,6 +1,7 @@
 header {
     height: 90px;
     padding-inline: 38px;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 header>.pc-header {
@@ -67,7 +68,7 @@ header>.menu {
         font-size: 50px;
     }
 
-    header > .menu {
+    header>.menu {
         max-height: 0;
         overflow: hidden;
         display: flex;
@@ -80,9 +81,10 @@ header>.menu {
         left: 0;
         z-index: 90;
         transition: all 0.5s ease;
+        background-color: var(--secondary);
     }
 
-    header > .open {
+    header>.open {
         max-height: 250px;
         z-index: 95;
     }
@@ -94,11 +96,12 @@ header>.menu {
         display: flex;
         flex-direction: column;
         gap: 20px;
+        padding-block: 10px;
     }
 
     header>.menu>ul>li>a {
         text-decoration: none;
-        color: var(--text);
+        color: var(--primary);
         font-size: 20px;
     }
 }

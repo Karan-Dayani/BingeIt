@@ -3,9 +3,18 @@ import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } 
 
 import Layout from "./components/Layout";
 
+import Home from "./pages/Home";
+import Movies from "./pages/Movies";
+import TvShows from "./pages/TvShows";
+import Watchlist from "./pages/Watchlist";
 
 const router = createBrowserRouter(createRoutesFromElements(
-  <Route path="/" element={<Layout />} />
+  <Route path="/" element={<Layout />} >
+    <Route index element={<Home />}  />
+    <Route path="/movies" element={<Movies />}  />
+    <Route path="/tv-shows" element={<TvShows />}  />
+    <Route path="/watchlist" element={<Watchlist />}  />
+  </Route>
 ))
 
 export default function App() {
