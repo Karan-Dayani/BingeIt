@@ -1,0 +1,30 @@
+.card-slider {
+    margin: 0 auto;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1rem;
+    height: auto;
+    padding: 1rem;
+    overflow-y: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+}
+
+.card-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.card-slider_title {
+    padding: 0 1rem;
+}
+
+.card-slider_card {
+    scroll-snap-align: center;
+}
+
+.card-slider_card_image {
+    width: 180px;
+    max-width: none;
+    object-fit: contain;
+    border-radius: 1rem;
+}
