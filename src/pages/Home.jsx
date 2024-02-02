@@ -15,7 +15,7 @@ export default function Home() {
             <Suspense fallback={<h1>Loading...</h1>}>
                 <Await resolve={data.popularMovies}>
                     {(popularMovies) => (
-                        <CardSlider data={popularMovies.results} title={"Popular Movies"} />
+                        <CardSlider data={popularMovies.results} title={"Popular Movies"} seeMore={"/movies"} />
                     )}
                 </Await>
             </Suspense>
