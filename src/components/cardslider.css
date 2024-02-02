@@ -16,10 +16,16 @@
 
 .card-slider_title {
     padding: 0 1rem;
+    margin: 0;
 }
 
 .card-slider_card {
     scroll-snap-align: center;
+    transition: all 0.1s ease;
+}
+
+.card-slider_card:hover {
+    transform: scale(1.1);
 }
 
 .card-slider_card_image {

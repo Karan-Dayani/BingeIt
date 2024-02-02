@@ -15,5 +15,5 @@ body {
     padding: 0;
     background-color: var(--primary);
     color: var(--text);
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
