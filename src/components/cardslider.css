@@ -55,6 +55,10 @@
     color: var(--hover);
 }
 
+.card-slider_see-more:hover {
+    filter: brightness(2);
+}
+
 .card-slider_card {
     scroll-snap-align: center;
     transition: all 0.1s ease;

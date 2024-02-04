@@ -1,13 +1,15 @@
 import React from "react";
-import { getPopularMovies, getPopularTvShows } from "../api";
+import { getPopularMovies, getPopularTvShows, getTrending } from "../api";
 import { Await, defer, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
 import CardSlider from "../components/CardSlider";
+import MyCarousel from "../components/MyCarousel";
 
 export function loader() {
     return defer({
         popularMovies: getPopularMovies(1),
-        PopularTvShows: getPopularTvShows(1)
+        PopularTvShows: getPopularTvShows(1),
+        Trending: getTrending()
     })
 }
 
@@ -16,6 +18,11 @@ export default function Home() {
     return (
         <>
             <Suspense fallback={<h1>Loading...</h1>}>
+                <Await resolve={data.Trending}>
+                    {(Trending) => (
+                        <MyCarousel data={Trending.results} />
+                    )}
+                </Await>
                 <Await resolve={data.popularMovies}>
                     {(popularMovies) => (
                         <CardSlider data={popularMovies.results} title={"Popular Movies"} seeMore={"/movies"} />

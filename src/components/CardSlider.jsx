@@ -19,22 +19,24 @@ export default function CardSlider({ data, title, seeMore }) {
                 <Link to={seeMore} className="card-slider_see-more">More...</Link>
             </div>
             <div className="card-slider-w-btn">
-                <button onClick={() => scroll(-200)} className="scroll-btns">
+                <button onClick={() => scroll(-1400)} className="scroll-btns">
                     <ChevronLeftRoundedIcon fontSize="large" />
                 </button>
                 <div className="card-slider" ref={ref}>
                     {
                         data.map((item) => (
-                            <div key={item.id} className="card-slider_card">
-                                <img className="card-slider_card_image" src={`https://image.tmdb.org/t/p/original${item.poster_path}`} />
-                            </div>
+                                item.poster_path ? (
+                                    < div key={item.id} className="card-slider_card" >
+                                        <img className="card-slider_card_image" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                                    </div>
+                                ) : <div key={item.id}></div>
                         ))
                     }
                 </div>
-                <button onClick={() => scroll(200)} className="scroll-btns">
+                <button onClick={() => scroll(1400)} className="scroll-btns">
                     <ChevronRightRoundedIcon fontSize="large" />
                 </button>
-            </div>
+            </div >
         </>
     )
 }

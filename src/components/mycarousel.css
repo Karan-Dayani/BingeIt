@@ -1,0 +1,91 @@
+.carousel {
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif !important;
+    /* font-family: 'Bebas Neue', sans-serif; */
+    color: var(--text);
+    padding: 0;
+}
+
+.carousel-bg-img-div {
+    width: 100%;
+    text-align: center;
+}
+
+.carousel-image {
+    max-height: calc(100vh - 91px);
+    object-fit: cover;
+    width: 95%;
+    filter: brightness(0.25);
+}
+
+.carousel-slide {
+    position: relative;
+}
+
+.carousel-overlay-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 95%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.5vw;
+}
+
+.carousel-overlay-poster-div {
+    width: 30%;
+    text-align: center;
+}
+
+.carousel-poster {
+    width: 70%;
+    border-radius: 30px;
+}
+
+.carousel-overlay-info-div {
+    width: 50%;
+}
+
+.carousel-info-name {
+    font-weight: 900;
+}
+
+.carousel-info-heading {
+    color: var(--hover);
+    font-weight: 800;
+}
+
+.carousel-overlay-info-div > p {
+    font-size: 1vw;
+}
+
+.carousel-mob-info {
+    display: none;
+}
+
+@media (max-width: 786px) {
+    .carousel-overlay-div {
+        display: none;
+    }
+    .carousel-image {
+        filter: brightness(1);
+    }
+
+    .carousel-bg-img-div {
+        width: 100%;
+        text-align: center;
+        height: 400px;
+    }
+    
+    .carousel-image {
+        object-fit: cover;
+        height: inherit;
+        filter: brightness(0.7);
+    }
+
+    .carousel-mob-info {
+        display: block;
+    }
+}
