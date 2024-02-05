@@ -17,10 +17,10 @@ export default function Header() {
                 <Link onClick={() => setMenu("menu")} className="brand" to="/">BINGEIT</Link>
                 <ul>
                     <li>
-                        <NavLink to="/movies">MOVIES</NavLink>
+                        <NavLink to="/movies?page=1">MOVIES</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/tv-shows">TV SHOWS</NavLink>
+                        <NavLink to="/tv-shows?page=1">TV SHOWS</NavLink>
                     </li>
                     <li>
                         <NavLink to="/watchlist">WATCHLIST</NavLink>
@@ -34,10 +34,10 @@ export default function Header() {
             <div className={menu}>
                 <ul>
                     <li>
-                        <NavLink onClick={handleMenuToggle} to="/movies">MOVIES</NavLink>
+                        <NavLink onClick={handleMenuToggle} to="/movies?page=1">MOVIES</NavLink>
                     </li>
                     <li>
-                        <NavLink onClick={handleMenuToggle} to="/tv-shows">TV SHOWS</NavLink>
+                        <NavLink onClick={handleMenuToggle} to="/tv-shows?page=1">TV SHOWS</NavLink>
                     </li>
                     <li>
                         <NavLink onClick={handleMenuToggle} to="/watchlist">WATCHLIST</NavLink>

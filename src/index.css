@@ -1,6 +1,7 @@
 :root {
     --primary: #161A1D;
     --secondary: #B1A7A6;
+    --tertiary: #D3D3D3;
     --hover: #BA181B;
     --text: #f5f3f4;
 }
@@ -20,4 +21,12 @@ body {
 
 html::-webkit-scrollbar {
     display: none;
+}
+
+.Mui-selected {
+    background-color: #BA181B !important;
+}
+
+.MuiPaginationItem-textPrimary {
+    color: var(--text) !important;
 }
