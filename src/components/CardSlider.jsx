@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
-export default function CardSlider({ data, title, seeMore }) {
+export default function CardSlider({ data, title, seeMore, toLink }) {
 
     const ref = useRef(null);
 
@@ -27,7 +27,7 @@ export default function CardSlider({ data, title, seeMore }) {
                         data.map((item) => (
                             item.poster_path ? (
                                 <div key={item.id} className="card-slider_card">
-                                    <Link>
+                                    <Link to={toLink+item.id}>
                                         <img className="card-slider_card_image" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
                                     </Link>
                                 </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import "./mycarousel.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
+import { Link } from 'react-router-dom';
 
 export default function MyCarousel({ data }) {
     return (
@@ -19,7 +20,9 @@ export default function MyCarousel({ data }) {
 
                         <div className='carousel-overlay-div'>
                             <div className='carousel-overlay-poster-div'>
-                                <img className='carousel-poster' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt="" />
+                                <Link to={`/${item.media_type}/${item.id}`}>
+                                    <img className='carousel-poster' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt="" />
+                                </Link>
                             </div>
                             <div className='carousel-overlay-info-div'>
                                 {item.name ? <h1 className='carousel-info-name'>{item.name}</h1> : <h1 className='carousel-info-name'>{item.title}</h1>}

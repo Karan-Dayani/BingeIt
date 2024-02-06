@@ -25,12 +25,12 @@ export default function Home() {
                 </Await>
                 <Await resolve={data.popularMovies}>
                     {(popularMovies) => (
-                        <CardSlider data={popularMovies.results} title={"Popular Movies"} seeMore={"/movies?page=1"} />
+                        <CardSlider data={popularMovies.results} title={"Popular Movies"} seeMore={"/movies?page=1"} toLink={"/movie/"} />
                     )}
                 </Await>
                 <Await resolve={data.PopularTvShows}>
                     {(PopularTvShows) => (
-                        <CardSlider data={PopularTvShows.results} title={"Popular Tv Shows"} seeMore={"/tv-shows?page=1"} />
+                        <CardSlider data={PopularTvShows.results} title={"Popular Tv Shows"} seeMore={"/tv-shows?page=1"} toLink={"/tv/"} />
                     )}
                 </Await>
             </Suspense>
