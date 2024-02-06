@@ -33,7 +33,7 @@ export default function TvShows() {
                     marginBlock: "40px"
                 }}>
                     <Pagination
-                        count={20}
+                        count={page+10}
                         page={page}
                         onChange={handlePageChange}
                         shape="rounded"
