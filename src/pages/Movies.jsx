@@ -24,7 +24,7 @@ export default function Movies() {
             <Suspense fallback={<h1>Loading...</h1>}>
                 <Await resolve={data.movies}>
                     {(movies) => (
-                        <CardContainer data={movies.results} />
+                        <CardContainer data={movies.results} toLink={"/movie/"} />
                     )}
                 </Await>
                 <div style={{
@@ -33,7 +33,7 @@ export default function Movies() {
                     marginBlock: "40px"
                 }}>
                     <Pagination
-                        count={20}
+                        count={page+10}
                         page={page}
                         onChange={handlePageChange}
                         shape="rounded"
