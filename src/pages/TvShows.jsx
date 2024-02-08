@@ -3,6 +3,7 @@ import { getPopularTvShows } from "../api";
 import { Await, defer, useLoaderData, useSearchParams } from "react-router-dom";
 import CardContainer from "../components/CardContainer";
 import { Pagination } from "@mui/material";
+import Loading from "../components/Loading";
 
 export function loader({ request }) {
     const page = new URL(request.url).searchParams.get('page');
@@ -21,7 +22,7 @@ export default function TvShows() {
 
     return (
         <>
-            <Suspense fallback={<h1>Loading...</h1>}>
+            <Suspense fallback={<Loading />}>
                 <Await resolve={data.tvShows}>
                     {(tvShows) => (
                         <CardContainer data={tvShows.results} toLink={"/tv/"} />

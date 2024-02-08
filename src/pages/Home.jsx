@@ -4,6 +4,7 @@ import { Await, defer, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
 import CardSlider from "../components/CardSlider";
 import MyCarousel from "../components/MyCarousel";
+import Loading from "../components/Loading";
 
 export function loader() {
     return defer({
@@ -17,7 +18,7 @@ export default function Home() {
     const data = useLoaderData();
     return (
         <>
-            <Suspense fallback={<h1>Loading...</h1>}>
+            <Suspense fallback={<Loading />}>
                 <Await resolve={data.Trending}>
                     {(Trending) => (
                         <MyCarousel data={Trending.results} />
