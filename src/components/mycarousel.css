@@ -14,7 +14,7 @@
 .carousel-image {
     max-height: calc(100vh - 91px);
     object-fit: cover;
-    width: 95%;
+    width: 100%;
     filter: brightness(0.25);
 }
 

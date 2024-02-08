@@ -1,4 +1,6 @@
 export async function getPopularMovies(page) {
+    // const DELAY_DURATION = 5000;
+    // await new Promise(resolve => setTimeout(resolve, DELAY_DURATION));
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_API_KEY}&page=${page}`;
     try {
         const res = await fetch(url);
