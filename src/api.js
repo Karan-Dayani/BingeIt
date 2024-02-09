@@ -54,3 +54,14 @@ export async function getTvDetails(id) {
         throw error        
     }
 }
+
+export async function getSearchResults(query) {
+    const url = `https://api.themoviedb.org/3/search/multi?api_key=${import.meta.env.VITE_API_KEY}&query=${query}`
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error        
+    }
+}

@@ -106,3 +106,70 @@ header>.menu {
         font-size: 20px;
     }
 }
+
+.input {
+    width: 100%;
+    max-width: 220px;
+    height: 45px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1.5px solid lightgrey;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0px 0px 20px -18px;
+}
+
+.input:hover {
+    border: 2px solid lightgrey;
+    box-shadow: 0px 0px 20px -17px;
+}
+
+.input:active {
+    transform: scale(0.95);
+}
+
+.input:focus {
+    border: 2px solid grey;
+}
+
+.search-res {
+    font-family: 'Inter', sans-serif !important;
+    position: absolute;
+    top: 91px;
+    right: 5%;
+    width: 400px;
+    max-height: calc(100vh - 200px);
+    background-color: var(--primary);
+    color: var(--text);
+    z-index: 999;
+    overflow-y: scroll;
+
+    scrollbar-color: var(--hover) #e0e0e0;
+    scrollbar-width: thin;
+}
+
+.res-item {
+    display: flex;
+    padding-block: 2%;
+    align-items: center;
+}
+
+.res-item-link {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.res-item-img {
+    width: 100px;
+    padding-left: 2%;
+}
+
+.res-item-info {
+    padding-inline: 10px;
+}
+
+.res-item-media {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: var(--hover);
+}
