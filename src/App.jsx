@@ -6,9 +6,10 @@ import Layout from "./components/Layout";
 import Home, {loader as homeLoader} from "./pages/Home";
 import Movies, {loader as moviesLoader} from "./pages/Movies";
 import TvShows, {loader as tvShowsLoader} from "./pages/TvShows";
-import Watchlist from "./pages/Watchlist";
 import MovieDetailPage, {loader as movieDetailLoader} from "./pages/MovieDetailPage";
 import TvDetailPage, {loader as tvShowDetailLoader} from "./pages/TvDetailPage";
+import Watchlist from "./pages/Watchlist";
+import Search from "./pages/Search";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />} >
@@ -19,6 +20,7 @@ const router = createBrowserRouter(createRoutesFromElements(
 
     <Route path="/movies" element={<Movies />} loader={moviesLoader} />
     <Route path="/tv-shows" element={<TvShows />} loader={tvShowsLoader} />
+    <Route path="/search" element={<Search />} />
     <Route path="/watchlist" element={<Watchlist />}  />
   </Route>
 ))

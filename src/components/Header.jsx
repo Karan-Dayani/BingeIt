@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import SearchIcon from '@mui/icons-material/Search';
 import "./header.css"
 import { getSearchResults } from "../api";
 
@@ -68,7 +69,12 @@ export default function Header() {
             </div>
             <div className="mob-header">
                 <Link onClick={() => setMenu("menu")} className="brand" to="/">BINGEIT</Link>
-                <MenuRoundedIcon onClick={handleMenuToggle} sx={{ fontSize: 50, color: "var(--hover)" }} />
+                <div>
+                    <Link to="/search">
+                        <SearchIcon sx={{ fontSize: 40, paddingRight: 1, color: "var(--text)" }} />
+                    </Link>
+                    <MenuRoundedIcon onClick={handleMenuToggle} sx={{ fontSize: 50, color: "var(--hover)" }} />
+                </div>
             </div>
             <div className={menu}>
                 <ul>

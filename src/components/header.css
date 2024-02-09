@@ -142,7 +142,7 @@ header>.menu {
     background-color: var(--primary);
     color: var(--text);
     z-index: 999;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     scrollbar-color: var(--hover) #e0e0e0;
     scrollbar-width: thin;
