@@ -1,0 +1,143 @@
+.big-container {
+    width: 100%;
+    display: flex;
+    padding-top: 1%;
+    align-items: center;
+}
+
+.mob-img {
+    width: 100%;
+    display: none;
+    padding-bottom: 5px;
+}
+
+.mob-img > img {
+    width: inherit;
+}
+
+.right-div {
+    width: 30%;
+}
+
+.image-div {
+    width: 90%;
+}
+
+.detail-image {
+    width: inherit;
+    border-radius: 8px;
+}
+
+.left-div {
+    width: 70%;
+}
+
+.left-div-1,
+.left-div-2,
+.left-div-3,
+.left-div-4 {
+    width: 100%;
+    padding-inline: 3%;
+    padding-right: 8%;
+}
+
+.left-div-1>.detail-name {
+    font-size: 70px;
+    font-weight: bold;
+    letter-spacing: -0.05em;
+    margin: 0;
+}
+
+.left-div-1>.detail-tagline {
+    font-size: 15px;
+}
+
+.left-div-2>.detail-date {
+    color: var(--secondary);
+    margin-bottom: 1%;
+}
+
+.left-div-2>.genres-div {
+    display: flex;
+    align-items: center;
+    gap: 2%;
+}
+
+.left-div-2>.genres-div>p {
+    background-color: var(--secondary);
+    color: var(--primary);
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+
+.left-div-3>.rating-btn-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.left-div-3>.rating-btn-div>.rating-div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.left-div-3>.rating-btn-div>.btn-div {
+    display: flex;
+    gap: 10px;
+}
+
+.left-div-3>.rating-btn-div>.rating-div>.rating {
+    margin: 0;
+    margin-top: 2px;
+    font-size: 18px;
+}
+
+.left-div-4>.description {
+    color: var(--secondary);
+}
+
+@media (max-width: 786px) {
+
+    .right-div {
+        display: none;
+    }
+
+    .left-div {
+        width: 100%;
+        text-align: center;
+    }
+
+    .left-div-1,
+    .left-div-2,
+    .left-div-3,
+    .left-div-4 {
+        padding-right: 3%
+    }
+
+    .left-div-1>.detail-name {
+        font-size: 50px;
+    }
+
+    .left-div-3>.rating-btn-div>.btn-div>Button {
+        font-size: 15px;
+    }
+
+    .left-div-2>.genres-div {
+        justify-content: center;
+    }
+
+    .left-div-3>.rating-btn-div>.rating-div {
+        justify-content: center;
+    }
+
+    .left-div-3>.rating-btn-div {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .mob-img {
+        display: block;
+    }
+}
