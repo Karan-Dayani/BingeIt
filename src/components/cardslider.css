@@ -75,7 +75,7 @@
     border-radius: 1rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 786px) {
     .card-slider_title {
         font-size: 20px;
     }
