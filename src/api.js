@@ -65,3 +65,25 @@ export async function getSearchResults(query) {
         throw error        
     }
 }
+
+export async function getMovieCredits(id) {
+    const url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${import.meta.env.VITE_API_KEY}`
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error        
+    }
+}
+
+export async function getTvCredits(id) {
+    const url = `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${import.meta.env.VITE_API_KEY}`
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error        
+    }
+}

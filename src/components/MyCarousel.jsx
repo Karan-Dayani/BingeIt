@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import fallbackImage from "/assets/images/Image-not-found.png";
 
 export default function MyCarousel({ data }) {
     return (
@@ -24,7 +25,12 @@ export default function MyCarousel({ data }) {
 
                         <div className='carousel-overlay-div'>
                             <div className='carousel-overlay-poster-div'>
-                                <img className='carousel-poster' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt="" />
+                                {
+                                    item.poster_path ?
+                                        <img className='carousel-poster' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt="" />
+                                        :
+                                        <img className="carousel-poster" src={fallbackImage} alt="" />
+                                }
                             </div>
                             <div className='carousel-overlay-info-div'>
                                 {item.name ? <h1 className='carousel-info-name'>{item.name}</h1> : <h1 className='carousel-info-name'>{item.title}</h1>}

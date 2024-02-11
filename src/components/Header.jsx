@@ -4,6 +4,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import SearchIcon from '@mui/icons-material/Search';
 import "./header.css"
 import { getSearchResults } from "../api";
+import fallbackImage from "/assets/images/Image-not-found.png";
 
 export default function Header() {
     const [menu, setMenu] = useState("menu")
@@ -44,7 +45,12 @@ export default function Header() {
                                     {searchRes.map((item) => (
                                         <Link key={item.id} className="res-item-link" to={`/${item.media_type}/${item.id}`} onClick={handelSearchResToggle}>
                                             <div className="res-item">
-                                                <img className='res-item-img' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt="image-not-found" />
+                                                {
+                                                    item.poster_path ? 
+                                                    <img className='res-item-img' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt="image-not-found" />
+                                                    :
+                                                    <img className='res-item-img' src={fallbackImage} alt=""/>
+                                                }
                                                 <div className="res-item-info">
                                                     {item.name ? <h6 className='res-item-name'>{item.name}</h6> : <h6 className='res-item-name'>{item.title}</h6>}
                                                     <p className="res-item-media">{item.media_type}</p>

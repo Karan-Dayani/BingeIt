@@ -35,7 +35,8 @@
 .left-div-1,
 .left-div-2,
 .left-div-3,
-.left-div-4 {
+.left-div-4,
+.left-div-5 {
     width: 100%;
     padding-inline: 3%;
     padding-right: 8%;
@@ -61,6 +62,7 @@
     display: flex;
     align-items: center;
     gap: 2%;
+    flex-wrap: wrap;
 }
 
 .left-div-2>.genres-div>p {
@@ -95,6 +97,10 @@
 }
 
 .left-div-4>.description {
+    color: var(--secondary);
+}
+
+.left-div-5>p {
     color: var(--secondary);
 }
 
