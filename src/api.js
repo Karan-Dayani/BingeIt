@@ -23,7 +23,6 @@ export async function getPopularTvShows(page) {
 }
 
 export async function getMovies(page, genres) {
-    // &sort_by=release_date.desc&primary_release_date.lte=2024-02-12
     let url = "";
     if (genres) {
         url = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&page=${page}&with_genres=${genres.split("-").join(",")}`;

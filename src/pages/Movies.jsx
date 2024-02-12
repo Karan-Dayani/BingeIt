@@ -10,7 +10,7 @@ export function loader({ request }) {
     const page = new URL(request.url).searchParams.get('page');
     const genres = new URL(request.url).searchParams.get('genres')
     return defer({
-        movies: getMovies(page,genres),
+        movies: getMovies(page, genres),
         genres: getGenres("movies")
     })
 }
@@ -26,7 +26,11 @@ export default function Movies() {
         } else {
             setSearchParams({ page: value });
         }
-        window.scrollTo(0, 0);
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "instant",
+        });
     }
 
     return (

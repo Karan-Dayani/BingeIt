@@ -5,6 +5,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import "./header.css"
 import { getSearchResults } from "../api";
 import fallbackImage from "/assets/images/Image-not-found.png";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function Header() {
     const [menu, setMenu] = useState("menu")
@@ -46,10 +48,28 @@ export default function Header() {
                                         <Link key={item.id} className="res-item-link" to={`/${item.media_type}/${item.id}`} onClick={handelSearchResToggle}>
                                             <div className="res-item">
                                                 {
-                                                    item.poster_path ? 
-                                                    <img className='res-item-img' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt="image-not-found" />
-                                                    :
-                                                    <img className='res-item-img' src={fallbackImage} alt=""/>
+                                                    item.poster_path ?
+                                                        <LazyLoadImage
+                                                            className='res-item-img'
+                                                            alt="image-not-found"
+                                                            effect="blur"
+                                                            wrapperProps={{
+                                                                // If you need to, you can tweak the effect transition using the wrapper style.
+                                                                style: { transitionDelay: "0.3s" },
+                                                            }}
+                                                            src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                                                        // <img className='res-item-img' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt="image-not-found" />
+                                                        :
+                                                        <LazyLoadImage
+                                                            className='res-item-img'
+                                                            alt="image-not-found"
+                                                            effect="blur"
+                                                            wrapperProps={{
+                                                                // If you need to, you can tweak the effect transition using the wrapper style.
+                                                                style: { transitionDelay: "0.3s" },
+                                                            }}
+                                                            src={fallbackImage} />
+                                                    // <img className='res-item-img' src={fallbackImage} alt="" />
                                                 }
                                                 <div className="res-item-info">
                                                     {item.name ? <h6 className='res-item-name'>{item.name}</h6> : <h6 className='res-item-name'>{item.title}</h6>}
