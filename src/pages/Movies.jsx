@@ -1,13 +1,18 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Await, defer, useLoaderData, useSearchParams } from "react-router-dom";
-import { getPopularMovies } from "../api";
+import { getMovies, getGenres } from "../api";
 import CardContainer from "../components/CardContainer";
 import Pagination from '@mui/material/Pagination';
 import Loading from "../components/Loading";
+import Filter from "../components/Filter";
 
 export function loader({ request }) {
     const page = new URL(request.url).searchParams.get('page');
-    return defer({ movies: getPopularMovies(page) })
+    const genres = new URL(request.url).searchParams.get('genres')
+    return defer({
+        movies: getMovies(page, genres),
+        genres: getGenres("movies")
+    })
 }
 
 export default function Movies() {
@@ -16,13 +21,26 @@ export default function Movies() {
     const page = Number(searchParams.get('page'));
 
     const handlePageChange = (event, value) => {
-        setSearchParams({ page: value });
-        window.scrollTo(0, 0);
+        if (searchParams.get("genres")) {
+            setSearchParams({ page: value, genres: searchParams.get("genres") });
+        } else {
+            setSearchParams({ page: value });
+        }
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "instant",
+        });
     }
 
     return (
         <>
             <Suspense fallback={<Loading />}>
+                <Await resolve={data.genres}>
+                    {(genres) => (
+                        <Filter genres={genres.genres} />
+                    )}
+                </Await>
                 <Await resolve={data.movies}>
                     {(movies) => (
                         <CardContainer data={movies.results} toLink={"/movie/"} />
@@ -34,7 +52,7 @@ export default function Movies() {
                     marginBlock: "40px"
                 }}>
                     <Pagination
-                        count={page+10}
+                        count={page + 1}
                         page={page}
                         onChange={handlePageChange}
                         shape="rounded"
