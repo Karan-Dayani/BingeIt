@@ -7,7 +7,7 @@ export async function getPopularMovies(page) {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
     }
 }
 
@@ -18,7 +18,40 @@ export async function getPopularTvShows(page) {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
+    }
+}
+
+export async function getMovies(page, genres) {
+    // &sort_by=release_date.desc&primary_release_date.lte=2024-02-12
+    let url = "";
+    if (genres) {
+        url = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&page=${page}&with_genres=${genres.split("-").join(",")}`;
+    } else {
+        url = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&page=${page}`;
+    }
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function getTvShows(page, genres) {
+    let url = "";
+    if (genres) {
+        url = `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_API_KEY}&page=${page}&with_genres=${genres.split("-").join(",")}`;
+    } else {
+        url = `https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_API_KEY}&page=${page}`;
+    }
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error
     }
 }
 
@@ -29,7 +62,7 @@ export async function getTrending() {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
     }
 }
 
@@ -40,7 +73,7 @@ export async function getMovieDetails(id) {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
     }
 }
 
@@ -51,7 +84,7 @@ export async function getTvDetails(id) {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
     }
 }
 
@@ -62,7 +95,7 @@ export async function getSearchResults(query) {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
     }
 }
 
@@ -73,7 +106,7 @@ export async function getMovieCredits(id) {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
     }
 }
 
@@ -84,15 +117,15 @@ export async function getTvCredits(id) {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
     }
 }
 
 export async function getGenres(type) {
     let url = ``
-    if(type = "movies") {
+    if (type === "movies") {
         url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_API_KEY}`
-    } else if (type = "tv") {
+    } else if (type === "tv") {
         url = `https://api.themoviedb.org/3/genre/tv/list?api_key=${import.meta.env.VITE_API_KEY}`
     }
     try {
@@ -100,6 +133,6 @@ export async function getGenres(type) {
         const data = res.json();
         return data
     } catch (error) {
-        throw error        
+        throw error
     }
 }

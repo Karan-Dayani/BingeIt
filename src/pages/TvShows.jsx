@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { getGenres, getPopularTvShows } from "../api";
+import { getGenres, getTvShows } from "../api";
 import { Await, defer, useLoaderData, useSearchParams } from "react-router-dom";
 import CardContainer from "../components/CardContainer";
 import { Pagination } from "@mui/material";
@@ -8,8 +8,9 @@ import Filter from "../components/Filter";
 
 export function loader({ request }) {
     const page = new URL(request.url).searchParams.get('page');
+    const genres = new URL(request.url).searchParams.get('genres');
     return defer({
-        tvShows: getPopularTvShows(page),
+        tvShows: getTvShows(page, genres),
         genres: getGenres("tv")
     })
 }
@@ -20,7 +21,11 @@ export default function TvShows() {
     const page = Number(searchParams.get('page'));
 
     const handlePageChange = (event, value) => {
-        setSearchParams({ page: value });
+        if (searchParams.get("genres")) {
+            setSearchParams({ page: value, genres: searchParams.get("genres") });
+        } else {
+            setSearchParams({ page: value });
+        }
         window.scrollTo(0, 0);
     }
 
@@ -43,7 +48,7 @@ export default function TvShows() {
                     marginBlock: "40px"
                 }}>
                     <Pagination
-                        count={page + 10}
+                        count={page + 1}
                         page={page}
                         onChange={handlePageChange}
                         shape="rounded"
