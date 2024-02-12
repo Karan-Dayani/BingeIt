@@ -87,3 +87,19 @@ export async function getTvCredits(id) {
         throw error        
     }
 }
+
+export async function getGenres(type) {
+    let url = ``
+    if(type = "movies") {
+        url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_API_KEY}`
+    } else if (type = "tv") {
+        url = `https://api.themoviedb.org/3/genre/tv/list?api_key=${import.meta.env.VITE_API_KEY}`
+    }
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error        
+    }
+}

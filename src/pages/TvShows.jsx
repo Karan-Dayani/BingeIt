@@ -1,13 +1,17 @@
 import React, { Suspense } from "react";
-import { getPopularTvShows } from "../api";
+import { getGenres, getPopularTvShows } from "../api";
 import { Await, defer, useLoaderData, useSearchParams } from "react-router-dom";
 import CardContainer from "../components/CardContainer";
 import { Pagination } from "@mui/material";
 import Loading from "../components/Loading";
+import Filter from "../components/Filter";
 
 export function loader({ request }) {
     const page = new URL(request.url).searchParams.get('page');
-    return defer({ tvShows: getPopularTvShows(page) })
+    return defer({
+        tvShows: getPopularTvShows(page),
+        genres: getGenres("tv")
+    })
 }
 
 export default function TvShows() {
@@ -23,6 +27,11 @@ export default function TvShows() {
     return (
         <>
             <Suspense fallback={<Loading />}>
+                <Await resolve={data.genres}>
+                    {(genres) => (
+                        <Filter genres={genres.genres} />
+                    )}
+                </Await>
                 <Await resolve={data.tvShows}>
                     {(tvShows) => (
                         <CardContainer data={tvShows.results} toLink={"/tv/"} />
@@ -34,7 +43,7 @@ export default function TvShows() {
                     marginBlock: "40px"
                 }}>
                     <Pagination
-                        count={page+10}
+                        count={page + 10}
                         page={page}
                         onChange={handlePageChange}
                         shape="rounded"

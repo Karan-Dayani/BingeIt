@@ -40,7 +40,8 @@ header>.pc-header>ul>li>a {
     transition: .3s ease;
 }
 
-header>.pc-header>ul>li>a:hover {
+header>.pc-header>ul>li>a:hover,
+header>.pc-header>ul>li>a.active {
     color: var(--hover);
 }
 

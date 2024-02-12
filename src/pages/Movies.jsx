@@ -1,13 +1,17 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Await, defer, useLoaderData, useSearchParams } from "react-router-dom";
-import { getPopularMovies } from "../api";
+import { getPopularMovies, getGenres } from "../api";
 import CardContainer from "../components/CardContainer";
 import Pagination from '@mui/material/Pagination';
 import Loading from "../components/Loading";
+import Filter from "../components/Filter";
 
 export function loader({ request }) {
     const page = new URL(request.url).searchParams.get('page');
-    return defer({ movies: getPopularMovies(page) })
+    return defer({
+        movies: getPopularMovies(page),
+        genres: getGenres("movies")
+    })
 }
 
 export default function Movies() {
@@ -23,6 +27,11 @@ export default function Movies() {
     return (
         <>
             <Suspense fallback={<Loading />}>
+                <Await resolve={data.genres}>
+                    {(genres) => (
+                        <Filter genres={genres.genres} />
+                    )}
+                </Await>
                 <Await resolve={data.movies}>
                     {(movies) => (
                         <CardContainer data={movies.results} toLink={"/movie/"} />
@@ -34,7 +43,7 @@ export default function Movies() {
                     marginBlock: "40px"
                 }}>
                     <Pagination
-                        count={page+10}
+                        count={page + 10}
                         page={page}
                         onChange={handlePageChange}
                         shape="rounded"
