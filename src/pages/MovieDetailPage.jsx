@@ -1,28 +1,30 @@
+import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import React, { Suspense } from "react";
-import { getMovieDetails, getMovieCredits } from "../api";
-import { Await, defer, useLoaderData } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import { Await, Link, defer, useLoaderData } from "react-router-dom";
+import { getMovieCredits, getMovieDetails, getMovieTrailer } from "../api";
 import Loading from "../components/Loading";
 import "./detailpage.css";
-import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-import Button from 'react-bootstrap/Button';
 import fallbackImage from "/assets/images/Image-not-found.png";
 
 export function loader({ params }) {
     return defer({
         movie: getMovieDetails(params.id),
-        credits: getMovieCredits(params.id)
+        credits: getMovieCredits(params.id),
+        trailer: getMovieTrailer(params.id)
     })
 }
 
 export default function MovieDetailPage() {
     const data = useLoaderData()
-
     return (
         <>
             <Suspense fallback={<Loading />}>
-                <Await resolve={Promise.all([data.movie, data.credits]).then(value => value)}>
+                <Await resolve={Promise.all([data.movie, data.credits, data.trailer]).then(value => value)}>
                     {(data) => {
-                        const [movie, credits] = data
+                        let [movie, credits, trailer] = data
+                        trailer = trailer?.results?.filter(vid => vid.name.includes(`Official Trailer`))
+                        console.log(trailer)
                         return (
                             <>
                                 <div className="mob-img">
@@ -63,7 +65,16 @@ export default function MovieDetailPage() {
                                                 </div>
                                                 <div className="btn-div">
                                                     <Button variant="outline-light">Add to Watchlist</Button>
-                                                    <Button variant="outline-light">Trailer</Button>
+                                                    {
+                                                        trailer.length >= 1 ?
+                                                            <Link to={`https://www.youtube.com/watch?v=${trailer[trailer.length-1]?.key}`} target="_blank">
+                                                                < Button variant="outline-light">
+                                                                    Trailer
+                                                                </Button>
+                                                            </Link>
+                                                            :
+                                                            <></>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -91,12 +102,12 @@ export default function MovieDetailPage() {
                                         </div>
 
                                     </div>
-                                </div>
+                                </div >
                             </>
                         )
                     }}
-                </Await>
-            </Suspense>
+                </Await >
+            </Suspense >
         </>
     )
 }

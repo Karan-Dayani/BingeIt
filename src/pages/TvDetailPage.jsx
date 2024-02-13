@@ -1,16 +1,17 @@
+import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import React, { Suspense } from "react";
-import { getTvDetails, getTvCredits } from "../api";
-import { Await, defer, useLoaderData } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import { Await, Link, defer, useLoaderData } from "react-router-dom";
+import { getTvCredits, getTvDetails, getTvTrailer } from "../api";
 import Loading from "../components/Loading";
 import "./detailpage.css";
-import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-import Button from 'react-bootstrap/Button';
 import fallbackImage from "/assets/images/Image-not-found.png";
 
 export function loader({ params }) {
     return defer({
         tvShow: getTvDetails(params.id),
-        credits: getTvCredits(params.id)
+        credits: getTvCredits(params.id),
+        trailer: getTvTrailer(params.id)
     })
 }
 
@@ -20,9 +21,11 @@ export default function TvDetailPage() {
     return (
         <>
             <Suspense fallback={<Loading />}>
-                <Await resolve={Promise.all([data.tvShow, data.credits]).then(value => value)}>
+                <Await resolve={Promise.all([data.tvShow, data.credits, data.trailer]).then(value => value)}>
                     {(data) => {
-                        const [tvShow, credits] = data
+                        let [tvShow, credits, trailer] = data
+                        trailer = trailer?.results?.filter(vid => vid.name.includes(`Official Trailer`))
+                        console.log(trailer)
                         return (
                             <>
                                 <div className="mob-img">
@@ -62,7 +65,14 @@ export default function TvDetailPage() {
                                                 </div>
                                                 <div className="btn-div">
                                                     <Button variant="outline-light">Add to Watchlist</Button>
-                                                    <Button variant="outline-light">Trailer</Button>
+                                                    {
+                                                        trailer.length >= 1 ?
+                                                            <Link to={`https://www.youtube.com/watch?v=${trailer[trailer.length-1].key}`} target="_blank">
+                                                                <Button variant="outline-light">Trailer</Button>
+                                                            </Link>
+                                                            :
+                                                            <></>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
