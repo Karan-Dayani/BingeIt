@@ -7,8 +7,8 @@ import "./watchlist.css"
 
 export function loader() {
     return defer({
-        movies: getMovieListDetails(JSON.parse(localStorage.getItem("movieList"))),
-        tvShows: getTvListDetails(JSON.parse(localStorage.getItem("tvList")))
+        movies: getMovieListDetails(JSON.parse(localStorage?.getItem("movieList")) || []),
+        tvShows: getTvListDetails(JSON.parse(localStorage?.getItem("tvList")) || [])
     })
 }
 
