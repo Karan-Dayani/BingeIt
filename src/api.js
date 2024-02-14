@@ -76,6 +76,28 @@ export async function getMovieDetails(id) {
     }
 }
 
+export async function getMovieTrailer(id) {
+    const url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${import.meta.env.VITE_API_KEY}`
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function getTvTrailer(id) {
+    const url = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${import.meta.env.VITE_API_KEY}`
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
 export async function getTvDetails(id) {
     const url = `https://api.themoviedb.org/3/tv/${id}?api_key=${import.meta.env.VITE_API_KEY}`
     try {
@@ -133,5 +155,35 @@ export async function getGenres(type) {
         return data
     } catch (error) {
         throw error
+    }
+}
+
+export async function getMovieListDetails(ids) {
+    if(!ids) {
+        return
+    }
+    const urls = ids?.map(id => `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`);
+    try {
+        const responses = await Promise.all(urls?.map(url => fetch(url)));
+        const moviesData = await Promise.all(responses?.map(res => res.json()));
+        // console.log(moviesData);
+        return moviesData;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getTvListDetails(ids) {
+    if(!ids) {
+        return
+    }
+    const urls = ids?.map(id => `https://api.themoviedb.org/3/tv/${id}?api_key=${import.meta.env.VITE_API_KEY}`);
+    try {
+        const responses = await Promise.all(urls?.map(url => fetch(url)));
+        const tvData = await Promise.all(responses?.map(res => res.json()));
+        // console.log(tvData);
+        return tvData;
+    } catch (error) {
+        throw error;
     }
 }

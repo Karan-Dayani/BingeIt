@@ -1,28 +1,53 @@
-import React, { Suspense } from "react";
-import { getTvDetails, getTvCredits } from "../api";
-import { Await, defer, useLoaderData } from "react-router-dom";
+import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
+import React, { Suspense, useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import { Await, Link, defer, useLoaderData } from "react-router-dom";
+import { getTvCredits, getTvDetails, getTvTrailer } from "../api";
 import Loading from "../components/Loading";
 import "./detailpage.css";
-import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-import Button from 'react-bootstrap/Button';
 import fallbackImage from "/assets/images/Image-not-found.png";
 
 export function loader({ params }) {
     return defer({
         tvShow: getTvDetails(params.id),
-        credits: getTvCredits(params.id)
+        credits: getTvCredits(params.id),
+        trailer: getTvTrailer(params.id)
     })
 }
 
 export default function TvDetailPage() {
     const data = useLoaderData()
+    const [listStatus, setListStatus] = useState(true);
+
+    const handleWatchlistAdd = (id) => {
+        let tvList = [];
+        tvList = JSON.parse(localStorage.getItem("tvList")) || [];
+        if (tvList.includes(id)) {
+            tvList = tvList.filter(listId => listId !== id)
+        } else {
+            tvList.push(id)
+        }
+        setListStatus(prev => !prev)
+        localStorage.setItem("tvList", JSON.stringify(tvList))
+    }
+
+    // console.log(JSON.parse(localStorage.getItem("tvList")))
 
     return (
         <>
             <Suspense fallback={<Loading />}>
-                <Await resolve={Promise.all([data.tvShow, data.credits]).then(value => value)}>
+                <Await resolve={Promise.all([data.tvShow, data.credits, data.trailer]).then(value => value)}>
                     {(data) => {
-                        const [tvShow, credits] = data
+                        let [tvShow, credits, trailer] = data
+                        trailer = trailer?.results?.filter(vid => vid.name.includes(`Official Trailer`))
+
+                        useEffect(() => {
+                            const tvList = JSON.parse(localStorage.getItem("tvList"));
+                            if(tvList?.includes(tvShow.id)) {
+                                setListStatus(false);
+                            }
+                        },[])
+
                         return (
                             <>
                                 <div className="mob-img">
@@ -61,8 +86,15 @@ export default function TvDetailPage() {
                                                     <p className="rating">{Math.round((tvShow.vote_average / 2) * 10) / 10}/5</p>
                                                 </div>
                                                 <div className="btn-div">
-                                                    <Button variant="outline-light">Add to Watchlist</Button>
-                                                    <Button variant="outline-light">Trailer</Button>
+                                                    <Button onClick={() => handleWatchlistAdd(tvShow.id)} variant="outline-light">{listStatus ? "Add to Watchlist" : "Remove from watchlist"}</Button>
+                                                    {
+                                                        trailer.length >= 1 ?
+                                                            <Link to={`https://www.youtube.com/watch?v=${trailer[trailer.length-1].key}`} target="_blank">
+                                                                <Button variant="outline-light">Trailer</Button>
+                                                            </Link>
+                                                            :
+                                                            <></>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>

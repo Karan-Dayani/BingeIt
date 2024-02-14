@@ -8,7 +8,7 @@ import Movies, {loader as moviesLoader} from "./pages/Movies";
 import TvShows, {loader as tvShowsLoader} from "./pages/TvShows";
 import MovieDetailPage, {loader as movieDetailLoader} from "./pages/MovieDetailPage";
 import TvDetailPage, {loader as tvShowDetailLoader} from "./pages/TvDetailPage";
-import Watchlist from "./pages/Watchlist";
+import Watchlist, {loader as watchlistLoader} from "./pages/Watchlist";
 import Search from "./pages/Search";
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -21,7 +21,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/movies" element={<Movies />} loader={moviesLoader} />
     <Route path="/tv-shows" element={<TvShows />} loader={tvShowsLoader} />
     <Route path="/search" element={<Search />} />
-    <Route path="/watchlist" element={<Watchlist />}  />
+    <Route path="/watchlist" element={<Watchlist />} loader={watchlistLoader} />
   </Route>
 ))
 
