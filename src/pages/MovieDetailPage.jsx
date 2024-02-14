@@ -1,5 +1,5 @@
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { Await, Link, defer, useLoaderData } from "react-router-dom";
 import { getMovieCredits, getMovieDetails, getMovieTrailer } from "../api";
@@ -17,6 +17,23 @@ export function loader({ params }) {
 
 export default function MovieDetailPage() {
     const data = useLoaderData()
+    const [listStatus, setListStatus] = useState(true);
+
+    const handleWatchlistAdd = (id) => {
+        let movieList = []
+        movieList = JSON.parse(localStorage.getItem("movieList")) || [];
+        if (movieList.includes(id)) {
+            movieList = movieList.filter(listId => listId !== id)
+        } else {
+            movieList.push(id)
+        }
+
+        setListStatus(prev => !prev)
+        localStorage.setItem("movieList", JSON.stringify(movieList))
+    }
+
+    // console.log(JSON.parse(localStorage.getItem("movieList")))
+
     return (
         <>
             <Suspense fallback={<Loading />}>
@@ -24,7 +41,14 @@ export default function MovieDetailPage() {
                     {(data) => {
                         let [movie, credits, trailer] = data
                         trailer = trailer?.results?.filter(vid => vid.name.includes(`Official Trailer`))
-                        console.log(trailer)
+
+                        useEffect(() => {
+                            const movieList = JSON.parse(localStorage.getItem("movieList"));
+                            if(movieList?.includes(movie.id)) {
+                                setListStatus(false);
+                            }
+                        },[])
+
                         return (
                             <>
                                 <div className="mob-img">
@@ -64,7 +88,7 @@ export default function MovieDetailPage() {
                                                     <p className="rating">{Math.round((movie.vote_average / 2) * 10) / 10}/5</p>
                                                 </div>
                                                 <div className="btn-div">
-                                                    <Button variant="outline-light">Add to Watchlist</Button>
+                                                    <Button onClick={() => handleWatchlistAdd(movie.id)} variant="outline-light">{listStatus ? "Add to Watchlist" : "Remove from watchlist"}</Button>
                                                     {
                                                         trailer.length >= 1 ?
                                                             <Link to={`https://www.youtube.com/watch?v=${trailer[trailer.length-1]?.key}`} target="_blank">

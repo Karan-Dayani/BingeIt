@@ -1,0 +1,19 @@
+.watchlist-switch-btn-div {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.watchlist-switch-btn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: var(--text);
+    transition: .3s ease;
+}
+
+.watchlist-switch-btn:hover,
+.active-list {
+    color: var(--hover);
+}

@@ -21,7 +21,6 @@ export default function Filter({ genres }) {
         }
     },[])
     
-    console.log(appliedGenres)
     const handleGenreChange = (id) => {
         if(appliedGenres.includes(id)) {
             setAppliedGenres(prev => prev.filter(genreid => genreid !== id));

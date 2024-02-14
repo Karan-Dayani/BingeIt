@@ -1,5 +1,5 @@
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { Await, Link, defer, useLoaderData } from "react-router-dom";
 import { getTvCredits, getTvDetails, getTvTrailer } from "../api";
@@ -17,6 +17,21 @@ export function loader({ params }) {
 
 export default function TvDetailPage() {
     const data = useLoaderData()
+    const [listStatus, setListStatus] = useState(true);
+
+    const handleWatchlistAdd = (id) => {
+        let tvList = [];
+        tvList = JSON.parse(localStorage.getItem("tvList")) || [];
+        if (tvList.includes(id)) {
+            tvList = tvList.filter(listId => listId !== id)
+        } else {
+            tvList.push(id)
+        }
+        setListStatus(prev => !prev)
+        localStorage.setItem("tvList", JSON.stringify(tvList))
+    }
+
+    // console.log(JSON.parse(localStorage.getItem("tvList")))
 
     return (
         <>
@@ -25,7 +40,14 @@ export default function TvDetailPage() {
                     {(data) => {
                         let [tvShow, credits, trailer] = data
                         trailer = trailer?.results?.filter(vid => vid.name.includes(`Official Trailer`))
-                        console.log(trailer)
+
+                        useEffect(() => {
+                            const tvList = JSON.parse(localStorage.getItem("tvList"));
+                            if(tvList?.includes(tvShow.id)) {
+                                setListStatus(false);
+                            }
+                        },[])
+
                         return (
                             <>
                                 <div className="mob-img">
@@ -64,7 +86,7 @@ export default function TvDetailPage() {
                                                     <p className="rating">{Math.round((tvShow.vote_average / 2) * 10) / 10}/5</p>
                                                 </div>
                                                 <div className="btn-div">
-                                                    <Button variant="outline-light">Add to Watchlist</Button>
+                                                    <Button onClick={() => handleWatchlistAdd(tvShow.id)} variant="outline-light">{listStatus ? "Add to Watchlist" : "Remove from watchlist"}</Button>
                                                     {
                                                         trailer.length >= 1 ?
                                                             <Link to={`https://www.youtube.com/watch?v=${trailer[trailer.length-1].key}`} target="_blank">

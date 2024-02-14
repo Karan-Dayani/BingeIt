@@ -10,6 +10,7 @@ export default function CardContainer({ data, toLink }) {
     return (
         <>
             <div className="card-container">
+                { data.length === 0 ? <h1>Oops! got nothing to show you</h1> : <></>}
                 {data?.map((item) => (
                     <div key={item.id} className="card-container_card">
                         <Link style={{ textDecoration: "none" }} to={toLink ? toLink + item.id : `/${item.media_type}/${item.id}`}>
