@@ -104,6 +104,10 @@
     color: var(--secondary);
 }
 
+.recommendation-div {
+    padding-inline: 2%;
+}
+
 .cast-container-div {
     padding-inline: 2%;
 }

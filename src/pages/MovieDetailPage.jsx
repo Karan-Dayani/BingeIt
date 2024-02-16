@@ -2,17 +2,19 @@ import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import React, { Suspense, useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { Await, Link, defer, useLoaderData } from "react-router-dom";
-import { getMovieCredits, getMovieDetails, getMovieTrailer } from "../api";
+import { getMovieCredits, getMovieDetails, getMovieTrailer, getMovieRecommendations } from "../api";
 import Loading from "../components/Loading";
 import "./detailpage.css";
 import fallbackImage from "/assets/images/Image-not-found.png";
 import CastContainer from '../components/CastComponent';
+import CardScroller from '../components/CardScroller';
 
 export function loader({ params }) {
     return defer({
         movie: getMovieDetails(params.id),
         credits: getMovieCredits(params.id),
-        trailer: getMovieTrailer(params.id)
+        trailer: getMovieTrailer(params.id),
+        recom: getMovieRecommendations(params.id)
     })
 }
 
@@ -38,9 +40,9 @@ export default function MovieDetailPage() {
     return (
         <>
             <Suspense fallback={<Loading />}>
-                <Await resolve={Promise.all([data.movie, data.credits, data.trailer]).then(value => value)}>
+                <Await resolve={Promise.all([data.movie, data.credits, data.trailer, data.recom]).then(value => value)}>
                     {(data) => {
-                        let [movie, credits, trailer] = data
+                        let [movie, credits, trailer, recom] = data
                         trailer = trailer?.results?.filter(vid => vid.name.includes(`Official Trailer`))
 
                         useEffect(() => {
@@ -130,6 +132,9 @@ export default function MovieDetailPage() {
                                 </div >
                                 <div className='cast-container-div'>
                                     <CastContainer cast={credits.cast} />
+                                </div>
+                                <div className='recommendation-div'>
+                                    <CardScroller data={recom.results} toLink="/movie/" />
                                 </div>
                             </>
                         )
