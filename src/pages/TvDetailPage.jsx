@@ -6,6 +6,7 @@ import { getTvCredits, getTvDetails, getTvTrailer } from "../api";
 import Loading from "../components/Loading";
 import "./detailpage.css";
 import fallbackImage from "/assets/images/Image-not-found.png";
+import CastContainer from '../components/CastComponent';
 
 export function loader({ params }) {
     return defer({
@@ -43,10 +44,10 @@ export default function TvDetailPage() {
 
                         useEffect(() => {
                             const tvList = JSON.parse(localStorage.getItem("tvList"));
-                            if(tvList?.includes(tvShow.id)) {
+                            if (tvList?.includes(tvShow.id)) {
                                 setListStatus(false);
                             }
-                        },[])
+                        }, [])
 
                         return (
                             <>
@@ -89,7 +90,7 @@ export default function TvDetailPage() {
                                                     <Button onClick={() => handleWatchlistAdd(tvShow.id)} variant="outline-light">{listStatus ? "Add to Watchlist" : "Remove from watchlist"}</Button>
                                                     {
                                                         trailer.length >= 1 ?
-                                                            <Link to={`https://www.youtube.com/watch?v=${trailer[trailer.length-1].key}`} target="_blank">
+                                                            <Link to={`https://www.youtube.com/watch?v=${trailer[trailer.length - 1].key}`} target="_blank">
                                                                 <Button variant="outline-light">Trailer</Button>
                                                             </Link>
                                                             :
@@ -122,6 +123,9 @@ export default function TvDetailPage() {
                                         </div>
 
                                     </div>
+                                </div>
+                                <div className='cast-container-div'>
+                                    <CastContainer cast={credits.cast} />
                                 </div>
                             </>
                         )
