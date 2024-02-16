@@ -104,6 +104,10 @@
     color: var(--secondary);
 }
 
+.cast-container-div {
+    padding-inline: 2%;
+}
+
 @media (max-width: 786px) {
 
     .right-div {
@@ -146,14 +150,8 @@
     .mob-img {
         display: block;
     }
-}
 
-.css-ypiqx9-MuiDialogContent-root {
-    padding: 0 !important;
-    overflow-y: hidden !important;
-    height: 600px !important;
-}
-
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
-    max-width: 1500px !important ;
+    .cast-container-div {
+        text-align: center;
+    }
 }
