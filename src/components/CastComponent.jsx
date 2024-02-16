@@ -3,17 +3,16 @@ import "./castcontainer.css";
 import fallbackImage from "/assets/images/Image-not-found.png";
 
 export default function CastContainer({ cast }) {
-    if(cast.length === 0) {
+    if (cast.length === 0) {
         return
     }
     cast = cast.slice(0, 9);
-    console.log(cast)
     return (
         <>
             <h1>Cast</h1>
             <div className="cast-container">
-                {cast.map((person) => (
-                    <div className="cast">
+                {cast.map((person, i) => (
+                    <div className="cast" key={i}>
                         <div className="cast-img-div">
                             {
                                 person.profile_path ?

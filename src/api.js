@@ -1,6 +1,5 @@
 export async function getPopularMovies(page) {
-    // const DELAY_DURATION = 5000;
-    // await new Promise(resolve => setTimeout(resolve, DELAY_DURATION));
+    
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_API_KEY}&page=${page}`;
     try {
         const res = await fetch(url);
@@ -185,5 +184,27 @@ export async function getTvListDetails(ids) {
         return tvData;
     } catch (error) {
         throw error;
+    }
+}
+
+export async function getMovieRecommendations(id) {
+    const url = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${import.meta.env.VITE_API_KEY}`
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function getTvRecommendations(id) {
+    const url = `https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=${import.meta.env.VITE_API_KEY}`
+    try {
+        const res = await fetch(url);
+        const data = res.json();
+        return data
+    } catch (error) {
+        throw error
     }
 }

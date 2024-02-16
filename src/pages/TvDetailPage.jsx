@@ -2,17 +2,19 @@ import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import React, { Suspense, useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { Await, Link, defer, useLoaderData } from "react-router-dom";
-import { getTvCredits, getTvDetails, getTvTrailer } from "../api";
+import { getTvCredits, getTvDetails, getTvTrailer, getTvRecommendations } from "../api";
 import Loading from "../components/Loading";
 import "./detailpage.css";
 import fallbackImage from "/assets/images/Image-not-found.png";
 import CastContainer from '../components/CastComponent';
+import CardScroller from '../components/CardScroller';
 
 export function loader({ params }) {
     return defer({
         tvShow: getTvDetails(params.id),
         credits: getTvCredits(params.id),
-        trailer: getTvTrailer(params.id)
+        trailer: getTvTrailer(params.id),
+        recom: getTvRecommendations(params.id)
     })
 }
 
@@ -37,9 +39,9 @@ export default function TvDetailPage() {
     return (
         <>
             <Suspense fallback={<Loading />}>
-                <Await resolve={Promise.all([data.tvShow, data.credits, data.trailer]).then(value => value)}>
+                <Await resolve={Promise.all([data.tvShow, data.credits, data.trailer, data.recom]).then(value => value)}>
                     {(data) => {
-                        let [tvShow, credits, trailer] = data
+                        let [tvShow, credits, trailer, recom] = data
                         trailer = trailer?.results?.filter(vid => vid.name.includes(`Official Trailer`))
 
                         useEffect(() => {
@@ -126,6 +128,9 @@ export default function TvDetailPage() {
                                 </div>
                                 <div className='cast-container-div'>
                                     <CastContainer cast={credits.cast} />
+                                </div>
+                                <div className='recommendation-div'>
+                                    <CardScroller data={recom.results} toLink="/tv/" />
                                 </div>
                             </>
                         )
